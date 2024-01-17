@@ -1,55 +1,46 @@
 #include <iostream>
- 
+#include <string>
 using namespace std;
- 
-int main()
-{
- cout << "##  Program Menghitung Gaji Karyawan  ##" << endl;
- cout << "========================================" << endl;
- cout << endl;
- 
- string nama;
- char golongan;
- int jam_kerja, upah_per_jam, total_upah;
- 
- // proses input
- cout << "Nama Karyawan: ";
- getline(cin,nama);
- 
- cout << "Golongan: ";
- cin >> golongan;
- 
- cout << "Jumlah jam kerja: ";
- cin >> jam_kerja;
- 
- // tentukan jumlah upah per jam berdasarkan golongan
- switch (golongan) {
-  case 'A':
-    upah_per_jam = 5000;
-    break;
-  case 'B':
-    upah_per_jam = 7000;
-    break;
-  case 'C':
-    upah_per_jam = 8000;
-    break;
-  case 'D':
-    upah_per_jam = 10000;
-    break;
-  }
- 
-  total_upah = jam_kerja * upah_per_jam;
- 
-  // cek apakah jam kerja lebih dari 48 jam
-  if ( (jam_kerja - 48) > 0 ) {
-     total_upah = total_upah + ((jam_kerja - 48)*4000);
-  }
- 
-  // proses output
-   cout << endl;
-   cout << nama << " menerima upah Rp." << total_upah << " per minggu";
-   cout << endl;
- 
- 
- return 0;
+
+int main() {
+    string nama_karyawan;
+    char golongan;
+    int jam_kerja;
+    const int jam_normal = 48;
+    const int upah_a = 5000, upah_b = 7000, upah_c = 8000, upah_d = 10000;
+    const int upah_lembur = 4000;
+
+    cout << "Masukkan nama karyawan: ";
+    getline(cin, nama_karyawan);
+
+    cout << "Masukkan golongan (A, B, C, atau D): ";
+    cin >> golongan;
+
+    cout << "Masukkan jumlah jam kerja: ";
+    cin >> jam_kerja;
+
+    int gaji;
+
+    switch (golongan) {
+        case 'A':
+            gaji = (jam_kerja <= jam_normal) ? jam_kerja * upah_a : jam_normal * upah_a + (jam_kerja - jam_normal) * upah_lembur;
+            break;
+        case 'B':
+            gaji = (jam_kerja <= jam_normal) ? jam_kerja * upah_b : jam_normal * upah_b + (jam_kerja - jam_normal) * upah_lembur;
+            break;
+        case 'C':
+            gaji = (jam_kerja <= jam_normal) ? jam_kerja * upah_c : jam_normal * upah_c + (jam_kerja - jam_normal) * upah_lembur;
+            break;
+        case 'D':
+            gaji = (jam_kerja <= jam_normal) ? jam_kerja * upah_d : jam_normal * upah_d + (jam_kerja - jam_normal) * upah_lembur;
+            break;
+        default:
+            cout << "Golongan yang dimasukkan tidak valid!";
+            return 1;
+    }
+
+    cout << "Nama karyawan: " << nama_karyawan << endl;
+    cout << "Gaji mingguan: Rp. " << gaji << endl;
+
+    return 0;
 }
